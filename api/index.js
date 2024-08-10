@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.route.js";
-
+import dotenv from "dotenv";
 const app = express();
 
+app.use(dotenv.config());
 app.use(express.json());
-const PORT = 8000;
+const port = process.env.PORT || 8000;
 app.use("/api/auth", authRoutes);
 
 mongoose
@@ -16,6 +17,6 @@ mongoose
 	.catch((error) => {
 		console.log(error);
 	});
-app.listen(PORT, () => {
+app.listen(port, () => {
 	console.log("app running successfully");
 });
