@@ -1,18 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.route.js";
-import dotenv from "dotenv";
+import "dotenv/config";
 const app = express();
 
-app.use(dotenv.config());
 app.use(express.json());
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 app.use("/api/auth", authRoutes);
 
 mongoose
-	.connect(
-		"mongodb+srv://rohit:rohitAuthPractice1@cluster0.5gxr6.mongodb.net/practiceAuth?retryWrites=true&w=majority&appName=Cluster0"
-	)
+	.connect(process.env.URI)
 	.then(() => {
 		console.log("mongodb connected");
 	})
