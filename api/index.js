@@ -1,9 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.route.js";
+import cors from "cors";
 import "dotenv/config";
 const app = express();
 
+const corsOptions = { origin: "https://practiceauth.onrender" };
+app.use(cors(corsOptions));
 app.use(express.json());
 const port = process.env.PORT || 4000;
 app.use("/api/auth", authRoutes);

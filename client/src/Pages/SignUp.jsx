@@ -16,11 +16,14 @@ function SignUp() {
 		e.preventDefault();
 		try {
 			dispatch(signUpStart());
-			const res = await fetch("/api/auth/signup", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(formData),
-			});
+			const res = await fetch(
+				`https://practiceauth.onrender.com/api/auth/signup`,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(formData),
+				}
+			);
 			const data = await res.json();
 			if (res.ok) {
 				dispatch(signUpSuccess(data));
