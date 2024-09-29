@@ -5,7 +5,7 @@ import cors from "cors";
 import "dotenv/config";
 const app = express();
 
-const corsOptions = { origin: "https://practiceauth.onrender" };
+const corsOptions = { origin: "https://practiceauth.onrender.com" };
 app.use(cors(corsOptions));
 app.use(express.json());
 const port = process.env.PORT || 4000;
