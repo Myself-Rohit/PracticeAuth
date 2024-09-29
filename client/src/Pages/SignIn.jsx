@@ -6,7 +6,6 @@ import {
 	signInStart,
 	signInSuccess,
 } from "../redux/user/userSlice";
-const baseUrl = import.meta.env.BASE_URL;
 
 function SignIn() {
 	const [formData, setFormData] = useState({});
@@ -17,16 +16,13 @@ function SignIn() {
 		e.preventDefault();
 		try {
 			dispatch(signInStart());
-			const res = await fetch(
-				`https://practiceauth.onrender.com/api/auth/signin`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(formData),
-				}
-			);
+			const res = await fetch(`/api/auth/signin`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
 			if (res.ok) {
 				const data = await res.json();
 				dispatch(signInSuccess(data));
