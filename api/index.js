@@ -12,6 +12,10 @@ const port = process.env.PORT || 4000;
 app.use("/api/auth", authRoutes);
 
 const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 mongoose
 	.connect(process.env.URI)
 	.then(() => {
@@ -22,9 +26,4 @@ mongoose
 	});
 app.listen(port, () => {
 	console.log("app running successfully");
-});
-
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
