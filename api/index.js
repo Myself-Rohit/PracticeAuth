@@ -2,15 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.route.js";
 import cors from "cors";
+import path from "path";
 import "dotenv/config";
 const app = express();
 
-const corsOptions = { origin: "https://practiceauth.onrender.com" };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 4000;
 app.use("/api/auth", authRoutes);
 
+const __dirname = path.resolve();
 mongoose
 	.connect(process.env.URI)
 	.then(() => {
@@ -21,4 +22,9 @@ mongoose
 	});
 app.listen(port, () => {
 	console.log("app running successfully");
+});
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
